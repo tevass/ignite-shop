@@ -1,4 +1,4 @@
-import { styled } from "../styles";
+import { styled } from "../../styles";
 
 export const ProductContainer = styled('div', {
   background: "linear-gradient(180deg, #1ea483 20%, #7465d4 100%)",

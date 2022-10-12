@@ -2,14 +2,20 @@ import Image from "next/future/image";
 import Link from "next/link";
 import { Handbag } from "phosphor-react";
 import { MouseEvent } from "react";
+import { useBag } from "../../hooks/useBag";
 
-import { BagButton, ProductContainer } from "../styles";
+import { BagButton, ProductContainer } from "./styles";
 
 interface Product {
   id: string
   name: string
   imageUrl: string
-  price: string
+  price: {
+    currency: string
+    number: number
+  }
+  description: string
+  defaultPriceId: string
 }
 
 interface ProductProps {
@@ -17,11 +23,12 @@ interface ProductProps {
 }
 
 export function Product({ product }: ProductProps) {
+  const { addOnBag } = useBag()
 
   const handleClick = (e: MouseEvent) => {
     e.stopPropagation();
     e.preventDefault();
-    console.log("button")
+    addOnBag(product)
   }
 
   return (
@@ -36,7 +43,7 @@ export function Product({ product }: ProductProps) {
         <footer>
           <div>
             <strong>{product.name}</strong>
-            <span>{product.price}</span>
+            <span>{product.price.currency}</span>
           </div>
 
           <BagButton onClick={handleClick}>
